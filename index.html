@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leonida Watch — Contagem regressiva e notícias de GTA 6 (não-oficial)</title>
+<meta name="description" content="Acompanhe a contagem regressiva para o lançamento de GTA 6, dados confirmados de plataformas, pré-venda e comparação com GTA V. Site de fãs, sem afiliação oficial.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f0e;
+    --bg-grid: rgba(45,212,191,0.05);
+    --panel:#121b1a;
+    --panel-2:#0e1615;
+    --border:#1f2e2b;
+    --amber:#ff9248;
+    --amber-dim:#a8623a;
+    --teal:#2dd4bf;
+    --pink:#ff4d8d;
+    --text:#eef2f1;
+    --muted:#85958f;
+    --display:'Space Groteske','Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+    z-index:1;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,15,14,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  nav.wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .logo{
+    font-family:var(--display);font-weight:700;font-size:1.05rem;
+    letter-spacing:0.02em;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);}
+  .navlinks{display:flex;gap:28px;font-size:0.88rem;color:var(--muted);}
+  .navlinks a{text-decoration:none;transition:color .15s;}
+  .navlinks a:hover{color:var(--amber);}
+  .navlinks a:focus-visible{outline:2px solid var(--teal);outline-offset:4px;}
+  @media (max-width:640px){ .navlinks{display:none;} }
+
+  /* HERO */
+  .hero{position:relative;z-index:2;padding:72px 0 40px;text-align:center;}
+  .eyebrow{
+    font-family:var(--mono);font-size:0.74rem;letter-spacing:0.14em;
+    color:var(--teal);text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--border);padding:6px 14px;border-radius:100px;
+    background:var(--panel);
+  }
+  .eyebrow .pulse{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:blink 1.6s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+  h1.title{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(2.2rem,6vw,3.8rem);
+    margin:20px 0 12px;line-height:1.05;letter-spacing:-0.01em;
+  }
+  h1.title span{color:var(--amber);}
+  .subhead{color:var(--muted);font-size:clamp(0.95rem,2vw,1.1rem);max-width:560px;margin:0 auto 36px;}
+
+  .countdown{
+    display:flex;justify-content:center;gap:clamp(8px,2vw,18px);
+    flex-wrap:wrap;margin-bottom:18px;
+  }
+  .cd-box{
+    background:var(--panel);border:1px solid var(--border);
+    border-radius:10px;padding:14px clamp(10px,2.5vw,22px);
+    min-width:78px;text-align:center;
+    box-shadow: inset 0 0 0 1px rgba(255,146,72,0.04);
+  }
+  .cd-num{
+    font-family:var(--mono);font-weight:700;
+    font-size:clamp(1.8rem,6vw,3rem);color:var(--amber);
+    text-shadow:0 0 18px rgba(255,146,72,0.35);
+    display:block;
+  }
+  .cd-num.tick{animation:flicker .4s ease;}
+  @keyframes flicker{0%{opacity:.35;}100%{opacity:1;}}
+  .cd-label{font-family:var(--mono);font-size:0.66rem;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;display:block;margin-top:6px;}
+  .target-line{font-family:var(--mono);font-size:0.82rem;color:var(--muted);}
+  .target-line b{color:var(--text);font-weight:500;}
+  @media (prefers-reduced-motion: reduce){
+    .cd-num.tick{animation:none;}
+    .eyebrow .pulse{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* TICKER */
+  .ticker-outer{
+    border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    background:var(--panel-2);overflow:hidden;position:relative;z-index:2;
+  }
+  .ticker-track{
+    display:flex;width:max-content;
+    animation:scrollticker 38s linear infinite;
+    padding:13px 0;
+  }
+  .ticker-track:hover{animation-play-state:paused;}
+  @keyframes scrollticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .ticker-item{
+    font-family:var(--mono);font-size:0.82rem;color:var(--muted);
+    white-space:nowrap;padding:0 28px;border-right:1px solid var(--border);
+  }
+  .ticker-item b{color:var(--teal);font-weight:500;}
+  @media (prefers-reduced-motion: reduce){ .ticker-track{animation:none;} }
+
+  /* AD SLOT */
+  .ad-slot{
+    margin:48px auto;max-width:1080px;padding:0 24px;
+  }
+  .ad-inner{
+    border:1px dashed var(--border);border-radius:10px;
+    padding:28px;text-align:center;color:var(--muted);
+    font-family:var(--mono);font-size:0.74rem;letter-spacing:0.06em;
+    background:rgba(255,255,255,0.015);
+  }
+
+  /* SECTIONS */
+  section{position:relative;z-index:2;padding:56px 0;}
+  .sec-head{margin-bottom:32px;}
+  .sec-eyebrow{font-family:var(--mono);font-size:0.74rem;color:var(--pink);letter-spacing:0.12em;text-transform:uppercase;}
+  .sec-title{font-family:var(--display);font-weight:600;font-size:clamp(1.5rem,3vw,2.1rem);margin:8px 0 0;}
+
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  @media (max-width:680px){ .cards{grid-template-columns:1fr;} }
+  .card{
+    background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:24px;
+  }
+  .card .tag{
+    font-family:var(--mono);font-size:0.68rem;letter-spacing:0.1em;color:var(--teal);
+    text-transform:uppercase;
+  }
+  .card h3{font-family:var(--display);font-size:1.15rem;margin:10px 0 8px;font-weight:600;}
+  .card p{color:var(--muted);font-size:0.92rem;margin:0;}
+
+  /* TABLE */
+  .table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;}
+  table{width:100%;border-collapse:collapse;font-size:0.92rem;min-width:520px;}
+  th,td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--border);}
+  th{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--amber);background:var(--panel-2);}
+  td:first-child{color:var(--muted);font-family:var(--mono);font-size:0.84rem;}
+  tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:rgba(255,255,255,0.02);}
+
+  /* FAQ */
+  details{
+    border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:10px;background:var(--panel);
+  }
+  details summary{
+    cursor:pointer;font-family:var(--display);font-weight:600;font-size:0.98rem;
+    list-style:none;display:flex;justify-content:space-between;align-items:center;
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";font-family:var(--mono);color:var(--amber);font-size:1.1rem;}
+  details[open] summary::after{content:"–";}
+  details p{color:var(--muted);margin:12px 0 0;font-size:0.92rem;}
+
+  .log-line{font-family:var(--mono);font-size:0.76rem;color:var(--muted);margin-top:10px;}
+  .log-line b{color:var(--teal);}
+
+  footer{
+    border-top:1px solid var(--border);padding:36px 0 48px;position:relative;z-index:2;
+  }
+  .disclaimer{
+    font-size:0.8rem;color:var(--muted);max-width:680px;line-height:1.6;
+  }
+  .foot-bottom{margin-top:20px;font-family:var(--mono);font-size:0.72rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="dot"></span>LEONIDA WATCH</div>
+    <div class="navlinks">
+      <a href="#o-que-sabemos">O que já sabemos</a>
+      <a href="#comparacao">GTA V vs VI</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </nav>
+</header>
+
+<div class="hero wrap">
+  <span class="eyebrow"><span class="pulse"></span>ACOMPANHAMENTO NÃO-OFICIAL</span>
+  <h1 class="title">Vice City está <span>chegando.</span></h1>
+  <p class="subhead">Contagem regressiva ao vivo, dados confirmados pela Rockstar e comparação direta com GTA V — tudo num só lugar.</p>
+
+  <div class="countdown" id="countdown">
+    <div class="cd-box"><span class="cd-num" id="cd-dias">--</span><span class="cd-label">dias</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-horas">--</span><span class="cd-label">horas</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-min">--</span><span class="cd-label">min</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-seg">--</span><span class="cd-label">seg</span></div>
+  </div>
+  <p class="target-line">Lançamento: <b>19 de novembro de 2026</b> · horário de Brasília</p>
+</div>
+
+<div class="ticker-outer">
+  <div class="ticker-track" id="ticker">
+    <span class="ticker-item">📍 Local: <b>Leonida</b>, estado fictício inspirado na Flórida</span>
+    <span class="ticker-item">🎮 Protagonistas: <b>Jason &amp; Lucia</b></span>
+    <span class="ticker-item">💻 Versão PC: <b>sem data oficial</b></span>
+    <span class="ticker-item">🛒 Pré-venda: <b>já aberta</b> desde 25/06/2026</span>
+    <span class="ticker-item">📦 Mídia física: <b>sem disco</b>, apenas código de download</span>
+    <span class="ticker-item">🕹️ No lançamento: <b>apenas modo história</b>, online vem depois</span>
+    <!-- duplicado para loop contínuo -->
+    <span class="ticker-item">📍 Local: <b>Leonida</b>, estado fictício inspirado na Flórida</span>
+    <span class="ticker-item">🎮 Protagonistas: <b>Jason &amp; Lucia</b></span>
+    <span class="ticker-item">💻 Versão PC: <b>sem data oficial</b></span>
+    <span class="ticker-item">🛒 Pré-venda: <b>já aberta</b> desde 25/06/2026</span>
+    <span class="ticker-item">📦 Mídia física: <b>sem disco</b>, apenas código de download</span>
+    <span class="ticker-item">🕹️ No lançamento: <b>apenas modo história</b>, online vem depois</span>
+  </div>
+</div>
+
+<div class="ad-slot">
+  <div class="ad-inner">[ ESPAÇO RESERVADO PARA ANÚNCIO — GOOGLE ADSENSE · FORMATO RESPONSIVO ]</div>
+</div>
+
+<section id="o-que-sabemos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Dados confirmados</div>
+      <h2 class="sec-title">O que já sabemos</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <span class="tag">Cenário</span>
+        <h3>Leonida &amp; Vice City</h3>
+        <p>A história se passa em Leonida, um estado fictício inspirado na Flórida. Vice City — a versão do universo GTA para Miami — volta a ser o centro da ação quase 25 anos depois do clássico de 2002.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Protagonistas</span>
+        <h3>Jason e Lucia</h3>
+        <p>A dupla é o centro da trama: um casal que acaba se envolvendo com o crime organizado depois que um golpe simples sai do controle. A narrativa alterna entre os dois pontos de vista.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Lançamento</span>
+        <h3>19/11/2026 · PS5 e Xbox Series</h3>
+        <p>Data confirmada oficialmente pela Take-Two. A versão para PC ainda não tem data — historicamente, a Rockstar lança a versão PC bem depois dos consoles.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Pré-venda</span>
+        <h3>Edições Standard e Ultimate</h3>
+        <p>As pré-vendas abriram em 25 de junho de 2026. A edição Ultimate inclui itens cosméticos extras, como veículos e personalizações. Preço em reais ainda não foi divulgado oficialmente.</p>
+      </div>
+    </div>
+    <p class="log-line">&gt; última atualização dos dados: <b>29/06/2026</b></p>
+  </div>
+</section>
+
+<section id="comparacao">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Lado a lado</div>
+      <h2 class="sec-title">GTA V vs GTA VI</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Critério</th><th>GTA V (2013)</th><th>GTA VI (2026)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cidade principal</td><td>Los Santos</td><td>Vice City</td></tr>
+          <tr><td>Protagonistas</td><td>3 (Michael, Franklin, Trevor)</td><td>2 (Jason e Lucia)</td></tr>
+          <tr><td>Plataformas no lançamento</td><td>PS3 / Xbox 360</td><td>PS5 / Xbox Series X|S</td></tr>
+          <tr><td>Versão PC</td><td>Chegou ~1 ano e meio depois</td><td>Ainda sem data oficial</td></tr>
+          <tr><td>Cópias vendidas</td><td>Mais de 230 milhões</td><td>A confirmar</td></tr>
+          <tr><td>Mídia física</td><td>Disco incluído</td><td>Apenas código de download</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="ad-slot">
+  <div class="ad-inner">[ ESPAÇO RESERVADO PARA ANÚNCIO — GOOGLE ADSENSE · FORMATO RESPONSIVO ]</div>
+</div>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Perguntas frequentes</div>
+      <h2 class="sec-title">Tirando as dúvidas</h2>
+    </div>
+
+    <details>
+      <summary>GTA 6 vai sair para PC?</summary>
+      <p>Ainda não há data oficial confirmada pela Rockstar para a versão de PC. Seguindo o padrão da franquia (a versão PC de GTA V chegou bem depois dos consoles), a expectativa é que isso só aconteça tempo depois do lançamento em PS5 e Xbox Series.</p>
+    </details>
+    <details>
+      <summary>Quanto custa a pré-venda?</summary>
+      <p>Nos Estados Unidos, a edição Standard está listada a US$ 79,99 e a Ultimate a US$ 99,99. O valor oficial em reais ainda não foi divulgado pela Rockstar ou Take-Two.</p>
+    </details>
+    <details>
+      <summary>A versão física vai ter disco?</summary>
+      <p>Não. Mesmo quem comprar a versão física em loja vai receber apenas um código para download do jogo, sem mídia física de fato.</p>
+    </details>
+    <details>
+      <summary>Onde o jogo se passa?</summary>
+      <p>No estado fictício de Leonida, inspirado na Flórida, com Vice City — a versão do universo GTA para Miami — como cenário central da história.</p>
+    </details>
+    <details>
+      <summary>O GTA Online novo já vem junto?</summary>
+      <p>Não. O lançamento inicial deve ser focado apenas no modo história para um jogador. A versão online normalmente chega depois, como aconteceu com GTA V.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="disclaimer">
+      Leonida Watch é um site independente, mantido por fãs, com fins informativos. Não temos qualquer afiliação oficial com a Rockstar Games, Take-Two Interactive ou qualquer estúdio relacionado a Grand Theft Auto. Todas as marcas, nomes e personagens citados pertencem aos seus respectivos donos. Informações sujeitas a alteração conforme novos anúncios oficiais.
+    </p>
+    <p class="foot-bottom">© 2026 Leonida Watch — protótipo estático.</p>
+  </div>
+</footer>
+
+<script>
+  // Contagem regressiva até 19/11/2026, horário de Brasília (UTC-3)
+  const target = new Date('2026-11-19T00:00:00-03:00').getTime();
+
+  const elDias = document.getElementById('cd-dias');
+  const elHoras = document.getElementById('cd-horas');
+  const elMin = document.getElementById('cd-min');
+  const elSeg = document.getElementById('cd-seg');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  let lastSeg = null;
+  function tick(){
+    const now = Date.now();
+    const diff = Math.max(0, target - now);
+
+    const dias = Math.floor(diff / 86400000);
+    const horas = Math.floor((diff % 86400000) / 3600000);
+    const min = Math.floor((diff % 3600000) / 60000);
+    const seg = Math.floor((diff % 60000) / 1000);
+
+    elDias.textContent = dias;
+    elHoras.textContent = pad(horas);
+    elMin.textContent = pad(min);
+    elSeg.textContent = pad(seg);
+
+    if (seg !== lastSeg){
+      elSeg.classList.remove('tick');
+      void elSeg.offsetWidth; // reinicia a animação
+      elSeg.classList.add('tick');
+      lastSeg = seg;
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
